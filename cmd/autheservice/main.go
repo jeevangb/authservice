@@ -1,10 +1,12 @@
 package main
 
 import (
+	"context"
 	"flag"
 
-	"github.com/jeevangb/authservice/pkg/configs"
-	"github.com/jeevangb/authservice/pkg/server"
+	config "github.com/jeevangb/authservice/internal/configs"
+	"github.com/jeevangb/authservice/internal/server"
+	"github.com/jeevangb/authservice/internal/services"
 )
 
 func main() {
@@ -14,11 +16,12 @@ func main() {
 	if *env == "" {
 		*env = "dev" // Set your default environment value here
 	}
-	cfg, err := configs.LoadConfig(env)
+	cfg, err := config.LoadConfig(env)
 	if err != nil {
 		return
 	}
-	err = server.RegisterGrpcServer(cfg.Port)
+	srv := services.NewService(context.Background())
+	err = server.RegisterAuthGrpcServer(cfg.AuthPORT, srv)
 	if err != nil {
 		return
 	}
