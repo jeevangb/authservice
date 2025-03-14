@@ -9,6 +9,11 @@ import (
 
 type Config struct {
 	AuthPORT string `mapstructure:"GRPC_SERVER_PORT"`
+	DbHost   string `mapstructure:"DB_HOST"`
+	DbPort   string `mapstructure:"DB_PORT"`
+	DbUser   string `mapstructure:"DB_USER"`
+	DbPass   string `mapstructure:"DB_PASSWORD"`
+	DbName   string `mapstructure:"DB_NAME"`
 }
 
 func LoadConfig(env *string) (Config, error) {
@@ -16,6 +21,11 @@ func LoadConfig(env *string) (Config, error) {
 	var cfg Config
 	envs := []string{
 		"GRPC_SERVER_PORT",
+		"DB_HOST",
+		"DB_PORT",
+		"DB_USER",
+		"DB_PASSWORD",
+		"DB_NAME",
 	}
 	// v.AddConfigPath("./")
 	// v.SetConfigFile("internal/configs/dev/application.env")
