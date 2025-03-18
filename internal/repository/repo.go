@@ -16,6 +16,7 @@ type UserService interface {
 	FindUserByEmail(email string) (*models.User, error)
 	CreateProject(ctx context.Context, project models.Project) error
 	GetProjectByTitle(ctx context.Context, title string, project *models.Project) (*models.Project, error)
+	SaveProject(project *models.Project) (*models.Project, error)
 }
 
 func NewService(conn *gorm.DB) UserService {
