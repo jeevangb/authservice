@@ -9,6 +9,7 @@ import (
 
 type GrpcImpl struct {
 	proto.AuthServiceServer
+	proto.ProjectServiceServer
 	usrsrc repository.UserService
 	ctx    context.Context
 }

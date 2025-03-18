@@ -49,6 +49,7 @@ require (
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-playground/validator/v10 v10.25.0
 	github.com/leodido/go-urn v1.4.0 // indirect
+	github.com/lib/pq v1.10.9
 	github.com/rs/zerolog v1.33.0
 	github.com/spf13/viper v1.19.0
 	golang.org/x/crypto v0.36.0

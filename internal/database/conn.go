@@ -22,7 +22,12 @@ func GetConnection(cfg config.Config) (*gorm.DB, error) {
 	}
 	err = db.AutoMigrate(&models.User{})
 	if err != nil {
-		log.Error().Err(err).Msg("failed to auto-migraete database")
+		log.Error().Err(err).Msg("failed to auto-migraete user database")
+		return nil, err
+	}
+	err = db.AutoMigrate(&models.Project{})
+	if err != nil {
+		log.Error().Err(err).Msg("failed to auto-migraete project database")
 		return nil, err
 	}
 	return db, nil
