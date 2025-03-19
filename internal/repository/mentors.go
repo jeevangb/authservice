@@ -23,3 +23,7 @@ func (r *UserRepo) GetProjectByTitle(ctx context.Context, title string, project 
 	}
 	return project, nil
 }
+
+func (r *UserRepo) DeleteProjectByTitle(ctx context.Context, title string) error {
+	return r.db.WithContext(ctx).Where("title = ?", title).Delete(&models.Project{}).Error
+}

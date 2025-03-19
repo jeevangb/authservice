@@ -17,6 +17,7 @@ type UserService interface {
 	CreateProject(ctx context.Context, project models.Project) error
 	GetProjectByTitle(ctx context.Context, title string, project *models.Project) (*models.Project, error)
 	SaveProject(project *models.Project) (*models.Project, error)
+	DeleteProjectByTitle(ctx context.Context, title string) error
 }
 
 func NewService(conn *gorm.DB) UserService {

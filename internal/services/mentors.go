@@ -6,6 +6,7 @@ import (
 
 	"github.com/jeevangb/authservice/internal/grpc/proto"
 	"github.com/jeevangb/authservice/internal/models"
+	"github.com/rs/zerolog/log"
 )
 
 func (s *GrpcImpl) CreateProject(ctx context.Context, req *proto.CreateProjectRequest) (*proto.Project, error) {
@@ -45,7 +46,7 @@ func (s *GrpcImpl) UpdateProject(ctx context.Context, req *proto.UpdateProjectRe
 	}
 	existingProject, err := s.usrsrc.GetProjectByTitle(ctx, project.Title, project)
 	if err != nil {
-		return &proto.Project{}, errors.New("Project not exists to update")
+		return &proto.Project{}, errors.New("project not exists to update")
 	}
 
 	if req.Description != "" {
@@ -70,5 +71,15 @@ func (s *GrpcImpl) UpdateProject(ctx context.Context, req *proto.UpdateProjectRe
 		TechnologyStack: project.TechnologyStack,
 		MentorName:      project.MentorName,
 		Status:          project.Status,
+	}, nil
+}
+
+func (s *GrpcImpl) DeleteProject(ctx context.Context, req *proto.DeleteProjectRequest) (*proto.DeleteProjectResponse, error) {
+	if err := s.usrsrc.DeleteProjectByTitle(ctx, req.Name); err != nil {
+		log.Error().Err(err).Msg("failed to delete project")
+		return &proto.DeleteProjectResponse{Success: false}, errors.New("failed to delete project")
+	}
+	return &proto.DeleteProjectResponse{
+		Success: true,
 	}, nil
 }
